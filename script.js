@@ -1,3 +1,4 @@
+const gameBoard = document.querySelector('.game-board'); //bg
 const marioRun = document.querySelector(".marioRun");
 const pipe = document.querySelector(".pipe");
 const clouds = document.querySelector(".clouds");
@@ -13,10 +14,13 @@ start.addEventListener("click", ()=>{
 		start.style.display = "none";
 	}
 });
-const jump = () =>{	
+const jump = () =>{
+	// marioRun.src = "./img/goku-stop.png";
+	marioRun.src = "./img/goku-fight.gif";
 	marioRun.classList.add("jump");
 	setTimeout(() => {
 		marioRun.classList.remove("jump");
+		marioRun.src = "./img/goku.gif";
 	}, 800);
 }
 document.addEventListener("keydown", jump);
@@ -45,7 +49,7 @@ const loop = setInterval(()=>{
 		marioRun.style.animation = "none";
 		marioRun.style.bottom = `${marioPosition}px`;
 
-		marioRun.src = "./img/game-over.png";
+		gameBoard.style.backgroundImage = 'url("./img/explosion.gif")';
 		marioRun.style.width = "70px";
 		marioRun.style.marginLeft = "50px";
 		clearInterval(loop);
