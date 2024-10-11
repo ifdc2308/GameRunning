@@ -106,6 +106,44 @@ body {
 .powers-list.right {
   right: 30px;
 }
+
+.start, .restart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-button, .restart-button {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.start-button:hover, .restart-button:hover {
+  background-color: #0056b3;
+}
+
+.game-over {
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000, 1px 1px 8px #000;
+  text-align: center;
+  margin-bottom: 20px;
+}
 /* Animação das nuvens */
 @keyframes clouds {
   0% {
@@ -118,3 +156,16 @@ body {
       opacity: 0;
   }
 }
+
+@keyframes vibrate {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(2px, 2px); }
+  50% { transform: translate(-2px, -2px); }
+  75% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.vibrate {
+  animation: vibrate 0.2s linear infinite;
+}
+
