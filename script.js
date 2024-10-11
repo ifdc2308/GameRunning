@@ -1,4 +1,4 @@
-const gameBoard = document.querySelector('.game-board'); //bg
+const gameBoard = document.querySelector(".game-board"); //bg
 const marioRun = document.querySelector(".marioRun");
 const pipe = document.querySelector(".pipe");
 const clouds = document.querySelector(".clouds");
@@ -7,61 +7,65 @@ const restart = document.querySelector(".restart");
 const start = document.querySelector(".start");
 const time = document.querySelector(".time");
 
-start.addEventListener("click", ()=>{
-	pipe.classList.add("pipe-animation");
-	clouds.classList.add("clouds-animation");
-	if(start){
-		start.style.display = "none";
-	}
-});
-const jump = () =>{
-	// marioRun.src = "./img/goku-stop.png";
-	marioRun.src = "./img/goku-fight.gif";
-	marioRun.classList.add("jump");
-	setTimeout(() => {
-		marioRun.classList.remove("jump");
-		marioRun.src = "./img/goku.gif";
-	}, 800);
+// script.js
+
+// Função para carregar o JSON
+async function loadCharacters() {
+  const response = await fetch("characters.json");
+  const data = await response.json();
+  return data.characters;
 }
-document.addEventListener("keydown", jump);
 
-const loopScore = setInterval(()=>{
-	const pipePositions = pipe.offsetLeft;
-	if(pipePositions < 90){
-		console.log(pipePositions)
-		score.innerHTML ++;
-	}
-}, 650);
+// Função para inicializar o jogo com os dados do JSON
+async function initGame() {
+  const characters = await loadCharacters();
 
-const loop = setInterval(()=>{
-	const pipePosition = pipe.offsetLeft;
-	const marioPosition = +window.getComputedStyle(marioRun).bottom.replace("px", " ");
-	const cloudsPosition = clouds.offsetLeft;
+  // Seleciona a game board
+  const gameBoard = document.querySelector(".game-board");
 
-	if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
-		
-		clouds.style.animation = "none";
-		clouds.style.left = `${cloudsPosition}px`;
+  characters.forEach((character) => {
+    // Cria o elemento da imagem do personagem
+    const characterImg = document.createElement("img");
+    characterImg.classList.add("character");
+    characterImg.src = character.image;
+    characterImg.alt = `Personagem ${character.name}`;
 
-		pipe.style.animation = "none";
-		pipe.style.left = `${pipePosition}px`;
+    // Define a posição (esquerda ou direita)
+    characterImg.classList.add(character.position);
 
-		marioRun.style.animation = "none";
-		marioRun.style.bottom = `${marioPosition}px`;
+    // Adiciona o personagem ao game board
+    gameBoard.appendChild(characterImg);
 
-		gameBoard.style.backgroundImage = 'url("./img/explosion.gif")';
-		marioRun.style.width = "70px";
-		marioRun.style.marginLeft = "50px";
-		clearInterval(loop);
-		clearInterval(loopScore);
+    // Cria a barra de vida
+    const healthBar = document.createElement("div");
+    healthBar.classList.add("health-bar", character.position);
 
-		start.style.display = "none";
-		restart.style.display = "flex";
-		
-		setTimeout(() => {
-			location.reload()
-		}, 2000);
-	}
-});
+    const healthFill = document.createElement("div");
+    healthFill.classList.add("health-fill");
+    healthFill.style.width = `${character.health}%`;
 
+    healthBar.appendChild(healthFill);
+    gameBoard.appendChild(healthBar);
 
+    // Cria a lista de poderes
+    const powersList = document.createElement("div");
+    powersList.classList.add("powers-list", character.position);
+
+    const powersTitle = document.createElement("h3");
+    powersTitle.textContent = `Poderes de ${character.name}`;
+    powersList.appendChild(powersTitle);
+
+    const powersUl = document.createElement("ul");
+    character.powers.forEach((power) => {
+      const powerLi = document.createElement("li");
+      powerLi.textContent = power;
+      powersUl.appendChild(powerLi);
+    });
+
+    powersList.appendChild(powersUl);
+    gameBoard.appendChild(powersList);
+  });
+}
+
+// Chama a função para inicializar o jogo
+initGame();

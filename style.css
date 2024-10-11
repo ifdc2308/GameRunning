@@ -1,10 +1,11 @@
+/* Estilos globais */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 body {
-  background: #555;
+  background: #333;
 }
 .title {
   color: #fff;
@@ -14,137 +15,106 @@ body {
   text-shadow: 1px 1px 1px #000, 1px 1px 8px #000;
   font-family: sans-serif;
 }
-.clouds {
-  margin-top: 50px;
-  margin-left: 120px;
-  width: 400px;
-  position: absolute;
-
-  user-select: none;
-}
-.clouds-animation {
-  animation: clouds 15s infinite linear;
-}
 .game-board {
   border-radius: 20px;
-  width: 80%;
-  height: 500px;
-  border-bottom: 15px solid rgb(35, 160, 35);
+  width: 90%;
+  height: 600px;
   margin: 0 auto;
   margin-top: 30px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(#003d56, #e0f6ff);
-  background-size: cover; /* Ajusta a imagem para cobrir todo o elemento */
-  background-repeat: no-repeat; /* Evita que a imagem seja repetida */
-  background-position: center; /* Centraliza a imagem */
-  user-select: none;
+  background: url('./img/local.gif') no-repeat center center;
+  background-size: cover;
 }
-.pipe {
-  position: absolute;
-  bottom: 0;
-  width: 80px;
-  right: -80px;
-
-  user-select: none;
-}
-.pipe-animation {
-  animation: pipe-animation 3s infinite linear;
-}
-.marioRun {
+/* Estilos dos personagens */
+.character {
   position: absolute;
   width: 140px;
-  bottom: 0;
-  user-select: none;
 }
-.jump {
-  animation: mario-jump 0.8s ease-out;
+.character.left {
+  bottom: 20px;
+  left: 30px;
 }
-.score2 {
-  font-size: 20px;
-  font-family: "Kaushan Script", cursive;
-  color: #fff;
-  text-shadow: 1px 1px 1px #000, 1px 1px 8px #000;
-  display: inline-block;
+.character.right {
+  bottom: 50px; /* Ajuste para criar a impressão de profundidade */
+  right: 30px;
+  transform: scaleX(-1); /* Inverte o personagem para dar a sensação de estar olhando para o oponente */
+}
+/* Nuvens decorativas */
+.clouds {
   position: absolute;
-  right: 0;
-  margin: 25px 72px 0 0;
-  padding: 10px;
-  user-select: none;
+  top: 20px;
+  width: 400px;
+  animation: clouds 15s infinite linear;
 }
+.clouds.left {
+  left: -400px;
+}
+.clouds.right {
+  right: -400px;
+}
+/* Barras de vida */
+.health-bar {
+  position: absolute;
+  top: 20px;
+  height: 20px;
+  width: 45%;
+  background-color: #ff4d4d;
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+.health-bar .health-fill {
+  height: 100%;
+  background-color: #4dff4d;
+  width: 100%; /* Altere dinamicamente o valor para simular dano */
+}
+.health-bar.left {
+  left: 30px;
+}
+.health-bar.right {
+  right: 30px;
+}
+/* Placar */
 .score {
-  font-size: 40px;
+  font-size: 24px;
   font-family: "Kaushan Script", cursive;
   color: #fff;
-  display: inline-block;
   text-shadow: 1px 1px 1px #000, 1px 1px 8px #000;
   position: absolute;
-  right: 0;
-  margin: 10px;
-  margin-right: 20px;
+  top: 50px;
+}
+.score.left {
+  left: 30px;
+}
+.score.right {
+  right: 30px;
+}
+/* Lista de poderes */
+.powers-list {
+  position: absolute;
+  bottom: 20px;
+  width: 25%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
   padding: 10px;
-  user-select: none;
+  margin-bottom: 300px;
+  border-radius: 10px;
 }
-.restart {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  margin-top: 220px;
+.powers-list.left {
+  left: 30px;
 }
-.restart-button,
-.game-over {
-  margin: auto;
-  width: 150px;
-  height: 50px;
-  font-size: 25px;
-  font-weight: bold;
-  text-align: center;
+.powers-list.right {
+  right: 30px;
 }
-.start {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin-top: 220px;
-}
-.start-button {
-  margin: auto;
-  width: 150px;
-  height: 50px;
-  font-size: 25px;
-  font-weight: bold;
-  text-align: center;
-}
+/* Animação das nuvens */
 @keyframes clouds {
   0% {
-    right: -400px;
-  }
-  100% {
-    right: 110%;
-  }
-}
-@keyframes mario-jump {
-  0% {
-    bottom: 0;
-  }
-  40% {
-    bottom: 120px;
+      opacity: 0;
   }
   50% {
-    bottom: 120px;
-  }
-  60% {
-    bottom: 120px;
+      opacity: 1;
   }
   100% {
-    bottom: 0;
-  }
-}
-@keyframes pipe-animation {
-  0% {
-    right: -80px;
-  }
-  100% {
-    right: 110%;
+      opacity: 0;
   }
 }

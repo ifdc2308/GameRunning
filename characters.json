@@ -1,0 +1,18 @@
+{
+    "characters": [
+        {
+            "name": "Ryu",
+            "image": "./img/ryu.png",
+            "health": 100,
+            "powers": ["Hadouken", "Shoryuken", "Tatsumaki Senpukyaku"],
+            "position": "left"
+        },
+        {
+            "name": "Ken",
+            "image": "./img/ken.png",
+            "health": 100,
+            "powers": ["Hadouken", "Shoryuken", "Tatsumaki Senpukyaku", "Shinryuken"],
+            "position": "right"
+        }
+    ]
+}
